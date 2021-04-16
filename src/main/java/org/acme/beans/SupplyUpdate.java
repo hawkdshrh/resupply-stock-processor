@@ -21,7 +21,7 @@ public class SupplyUpdate {
     public String getSupplyCode() {
         return supplyCode;
     }
-    public void setOrderCode(String supplyCode) {
+    public void setSupplyCode(String supplyCode) {
         this.supplyCode = supplyCode;
     }
     public SupplyUpdateEntry[] getSupplyUpdateEntries() {
