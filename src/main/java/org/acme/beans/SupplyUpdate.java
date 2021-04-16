@@ -5,17 +5,17 @@ import java.util.Arrays;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
-public class SupplyOrder {
+public class SupplyUpdate {
     private String supplyCode;
-    private SupplyOrderEntry[] supplyOrderEntries;
+    private SupplyUpdateEntry[] supplyUpdateEntries;
 
-    public SupplyOrder() {
+    public SupplyUpdate() {
 
     }
 
-    public SupplyOrder(String supplyCode, SupplyOrderEntry[] supplyOrderEntries) {
+    public SupplyUpdate(String supplyCode, SupplyUpdateEntry[] supplyUpdateEntries) {
         this.supplyCode = supplyCode;
-        this.supplyOrderEntries = supplyOrderEntries;
+        this.supplyUpdateEntries = supplyUpdateEntries;
     }
 
     public String getSupplyCode() {
@@ -24,11 +24,11 @@ public class SupplyOrder {
     public void setOrderCode(String supplyCode) {
         this.supplyCode = supplyCode;
     }
-    public SupplyOrderEntry[] getSupplyOrderEntries() {
-        return supplyOrderEntries;
+    public SupplyUpdateEntry[] getSupplyUpdateEntries() {
+        return supplyUpdateEntries;
     }
-    public void setSupplyOrderEntries(SupplyOrderEntry[] supplyOrderEntries) {
-        this.supplyOrderEntries = supplyOrderEntries;
+    public void setSupplyUpdateEntries(SupplyUpdateEntry[] supplyUpdateEntries) {
+        this.supplyUpdateEntries = supplyUpdateEntries;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class SupplyOrder {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((supplyCode == null) ? 0 : supplyCode.hashCode());
-        result = prime * result + Arrays.hashCode(supplyOrderEntries);
+        result = prime * result + Arrays.hashCode(supplyUpdateEntries);
         return result;
     }
 
@@ -48,13 +48,13 @@ public class SupplyOrder {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        SupplyOrder other = (SupplyOrder) obj;
+        SupplyUpdate other = (SupplyUpdate) obj;
         if (supplyCode == null) {
             if (other.supplyCode != null)
                 return false;
         } else if (!supplyCode.equals(other.supplyCode))
             return false;
-        if (!Arrays.equals(supplyOrderEntries, other.supplyOrderEntries))
+        if (!Arrays.equals(supplyUpdateEntries, other.supplyUpdateEntries))
             return false;
         return true;
     }

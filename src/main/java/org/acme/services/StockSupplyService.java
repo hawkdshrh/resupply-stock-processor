@@ -7,8 +7,8 @@ import org.acme.beans.Product;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import org.acme.beans.SupplyOrder;
-import org.acme.beans.SupplyOrderEntry;
+import org.acme.beans.SupplyUpdate;
+import org.acme.beans.SupplyUpdateEntry;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
@@ -19,13 +19,13 @@ public class StockSupplyService {
 
     @Inject
     @Channel("updated-stock-out")
-    Emitter<SupplyOrder> emitter;
+    Emitter<SupplyUpdate> emitter;
 
     public void updateAvailableStock(Product product, Integer amount) {
 
         LOGGER.log(Level.INFO, "Updating sku:{0} for {1} items.", new Object[]{product.getProductSku(), amount});
-            SupplyOrderEntry entry = new SupplyOrderEntry(product, amount);
-            SupplyOrder supplyOrder = new SupplyOrder(UUID.randomUUID().toString(), new SupplyOrderEntry[]{entry});
-            emitter.send(supplyOrder);
+            SupplyUpdateEntry entry = new SupplyUpdateEntry(product, amount);
+            SupplyUpdate supplyUpdate = new SupplyUpdate(UUID.randomUUID().toString(), new SupplyUpdateEntry[]{entry});
+            emitter.send(supplyUpdate);
     }
 }

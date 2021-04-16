@@ -3,15 +3,15 @@ package org.acme.beans;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
-public class SupplyOrderEntry {
+public class SupplyUpdateEntry {
     private Product product;
     private Integer quantity;
 
-    public SupplyOrderEntry() {
+    public SupplyUpdateEntry() {
 
     }
 
-    public SupplyOrderEntry(Product product, Integer quantity) {
+    public SupplyUpdateEntry(Product product, Integer quantity) {
         this.product = product;
         this.quantity = quantity;
     }
@@ -49,7 +49,7 @@ public class SupplyOrderEntry {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        SupplyOrderEntry other = (SupplyOrderEntry) obj;
+        SupplyUpdateEntry other = (SupplyUpdateEntry) obj;
         if (product == null) {
             if (other.product != null)
                 return false;
