@@ -6,11 +6,10 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 ## Application
 
-This app runs a KafkaStreams topology which consumes orders and shipments (from topics of the same name) and produces a stream of stock reservations per product SKU.
+This app runs a KafkaStreams topology which consumes supply-updates (from topic of the same name) and produces a stream of stock-level updates per product SKU.
 
 ### Logic
 * The "warehouse", represented by the stock-levels topic, is the master of stock and periodically updates absolute stock levels per SKU.
-* New customer orders and shipments create and release reservations on existing stock for each product SKU and quantity ordered.
 
 ### Assumptions
 * Updates to stock-levels per SKU always supersede previous updates. (Lots of things can happen in the warehouse to change stock-levels.)

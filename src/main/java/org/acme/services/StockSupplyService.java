@@ -14,18 +14,21 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 @ApplicationScoped
 public class StockSupplyService {
-    
+
     private static final Logger LOGGER = Logger.getLogger("StockSupplyService");
 
     @Inject
     @Channel("updated-stock-out")
     Emitter<SupplyUpdate> emitter;
 
-    public void updateAvailableStock(Product product, Integer amount) {
+    public void updateAvailableStock(String updateId, Product product, Integer amount, String supplyCode) {
 
+        if (updateId == null || updateId.isEmpty()) {
+            updateId = UUID.randomUUID().toString();
+        }
         LOGGER.log(Level.INFO, "Updating sku:{0} for {1} items.", new Object[]{product.getProductSku(), amount});
-            SupplyUpdateEntry entry = new SupplyUpdateEntry(product, amount);
-            SupplyUpdate supplyUpdate = new SupplyUpdate(UUID.randomUUID().toString(), new SupplyUpdateEntry[]{entry});
-            emitter.send(supplyUpdate);
+        SupplyUpdateEntry entry = new SupplyUpdateEntry(product, amount);
+        SupplyUpdate supplyUpdate = new SupplyUpdate(updateId, supplyCode, new SupplyUpdateEntry[]{entry});
+        emitter.send(supplyUpdate);
     }
 }
