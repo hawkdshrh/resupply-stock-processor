@@ -10,12 +10,14 @@ This app runs a KafkaStreams topology which consumes supply-updates (from topic 
 
 ### Logic
 * The "warehouse", represented by the stock-levels topic, is the master of stock and periodically updates absolute stock levels per SKU.
+* The updated-stock topic backs a web service (rest) endpoint and represents absolute updates / corrections to stock levels.
+* The resupply-stock-processor reads updates from the updated-stock topic and translates them to product / quantity updated to stock-levels.
 
 ### Assumptions
 * Updates to stock-levels per SKU always supersede previous updates. (Lots of things can happen in the warehouse to change stock-levels.)
 * updated-stock per SKU, resulting from supply orders, will be used to modify in real time the latest stock-levels. 
  
-(The reserved-stock-processor project: https://github.com/merlante/reserved-stock-processor does this last bit, producing a real time stream of stock reservations.)
+(The resupply-stock-processor project: https://github.com/hawkdshrh/resupply-stock-processor does this last bit, producing a real time stream of stock-level updates.)
 
 ## Quickstart
 
