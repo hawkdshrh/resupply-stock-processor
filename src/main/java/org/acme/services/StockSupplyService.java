@@ -7,6 +7,8 @@ import org.acme.beans.Product;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import org.acme.beans.SupplyUpdate;
 import org.acme.beans.SupplyUpdateEntry;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -16,11 +18,15 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 public class StockSupplyService {
 
     private static final Logger LOGGER = Logger.getLogger("StockSupplyService");
+    
+    @Inject
+    EntityManager em;
 
     @Inject
     @Channel("updated-stock-out")
     Emitter<SupplyUpdate> emitter;
 
+    @Transactional
     public void updateAvailableStock(String updateId, Product product, Integer amount, String supplyCode) {
 
         if (updateId == null || updateId.isEmpty()) {
@@ -30,5 +36,6 @@ public class StockSupplyService {
         SupplyUpdateEntry entry = new SupplyUpdateEntry(product, amount);
         SupplyUpdate supplyUpdate = new SupplyUpdate(updateId, supplyCode, new SupplyUpdateEntry[]{entry});
         emitter.send(supplyUpdate);
+        em.merge(product);
     }
 }
